@@ -1,4 +1,4 @@
-*Loot Generator*
+*Loot Generator 0.1.0*
 
 Simple and plain console script for on-the-fly loot generation for tabletop RPGs.
 
