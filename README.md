@@ -15,3 +15,6 @@ pip install lootgenerator
 `generator = BasicLootGenerator(table)`
 
 `generator.generate(1000)`
+
+
+TBD: proper readme, examples, proper comments.
