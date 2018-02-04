@@ -6,10 +6,11 @@ class AbstractLootGenerator(object):
     VALUE_NAME = None
     EXTRA_NAME = None
 
-    def __init__(self, loot_table, result_file_name=None, *args,  **kwargs):
+    def __init__(self, loot_table, return_object=True, result_file_name=None, *args,  **kwargs):
         self.loot_table = loot_table
         self.result_file_name = result_file_name
-        self.selection_options = loot_table.as_list()
+        self.selection_options = loot_table.to_list()
+        self.return_object = return_object
 
     def generate(self, amount, *args, **kwargs):
         result_dict = {}
@@ -21,12 +22,14 @@ class AbstractLootGenerator(object):
                 result = self.select_loot(generation_options)
                 amount = amount - result[self.VALUE_NAME]
                 if result[self.RESULT_NAME] in result_dict.keys():
-                    result_dict[self.RESULT_NAME] += 1
+                    result_dict[result[self.RESULT_NAME]] += 1
                 else:
-                    result_dict[self.RESULT_NAME] = 1
+                    result_dict[result[self.RESULT_NAME]] = 1
             else:
                 result_dict[self.EXTRA_NAME] = amount
         self.print_result(result_dict)
+        if self.return_object:
+            return result_dict
 
     def select_for_generation(self, amount,  *args, **kwargs):
         raise NotImplementedError
@@ -65,7 +68,7 @@ class MiscLootGenerator(BasicLootGenerator):
     def select_for_generation(self, amount, *args, **kwargs):
         filtered_selection_options = super(MiscLootGenerator, self).select_for_generation(amount, *args, **kwargs)
         if self.MISC_KWARG in kwargs:
-            filtered_selection_options = filter(lambda x: x[self.MISC_NAME], filtered_selection_options)
+            filtered_selection_options = filter(lambda x: not x[self.MISC_NAME], filtered_selection_options)
         return filtered_selection_options
 
 

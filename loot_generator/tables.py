@@ -66,7 +66,7 @@ class CSVLootTable(FileLootTable):
                 keys_list = row_raw_values
             else:
                 prepared_row = map(self._map_to_float, row_raw_values)
-                row_dict = zip(keys_list, prepared_row)
+                row_dict = dict(zip(keys_list, prepared_row))
                 intermediate_result.append(row_dict)
         self.intermediate_result = intermediate_result
         loot_file.close()

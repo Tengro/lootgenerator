@@ -7,7 +7,7 @@ def readme():
 
 
 setup(name='lootgenerator',
-      version='0.1.0',
+      version='0.2.0',
       description='Tabletop RPG loot generator',
       long_description=readme(),
       classifiers=[

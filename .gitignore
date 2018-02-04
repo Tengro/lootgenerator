@@ -3,3 +3,4 @@
 .idea/
 *.csv
 *.json
+*.DS_Store
